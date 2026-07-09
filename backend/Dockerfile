@@ -8,4 +8,4 @@ ENV DB_HOST=mysql \
     DB_USER=expense \
     DB_PWD=ExpenseApp@1 \
     DB_DATABASE=transactions    
-CMD ["node", "server.js"]
+CMD ["node", "index.js"]
