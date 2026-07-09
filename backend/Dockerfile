@@ -1,13 +1,11 @@
-FROM node:20.15.0-alpine3.20
-EXPOSE 8080
-ENV DB_HOST=mysql
-RUN addgroup -S expense && adduser -S expense -G expense \
-    && mkdir /opt/server \
-    && chown expense:expense -R /opt/server
-WORKDIR /opt/server
+FROM node:20
+# creates /app and set the directory to /app
+WORKDIR /app
 COPY package.json .
-COPY *.js /opt/server/
+COPY *.js .
 RUN npm install
-USER expense
-EXPOSE 8081
-CMD [ "node","index.js" ]
+ENV DB_HOST=mysql \
+    DB_USER=expense \
+    DB_PWD=ExpenseApp@1 \
+    DB_DATABASE=transactions    
+CMD ["node", "server.js"]
