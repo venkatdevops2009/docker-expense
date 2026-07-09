@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: piridi/expense-mysql:v1
+    container_name: mysql
+    networks:
+      - expense
+
+  backend:
+    image: piridi/expense-backend:v1
+    container_name: backend
+    depends_on:
+      - mysql
+    networks:
+      - expense
+    ports:
+      - "8080:8080"
+
+  frontend:
+    image: piridi/expense-frontend:v1
+    container_name: frontend
+    depends_on:
+      - backend
+    networks:
+      - expense
+    ports:
+      - "80:80"
+
+networks:
+  expense:
+
+# docker compose up -d
